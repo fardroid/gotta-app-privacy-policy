@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farkhad Kerimli - Head of Analytics</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --bg-soft: #f0efe9;
+    --fg: #161614;
+    --fg-2: #4a4843;
+    --fg-3: #8a877f;
+    --accent: #4f46e5;
+    --accent-soft: rgba(79, 70, 229, 0.08);
+    --line: rgba(22, 22, 20, 0.08);
+  }
+  [data-theme="dark"] {
+    --bg: #0d0d0c;
+    --bg-soft: #161614;
+    --fg: #f5f4ef;
+    --fg-2: #b8b6ad;
+    --fg-3: #6a685f;
+    --accent: #818cf8;
+    --accent-soft: rgba(129, 140, 248, 0.12);
+    --line: rgba(245, 244, 239, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *::selection { background: var(--accent); color: var(--bg); }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 17px;
+    line-height: 1.6;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .serif { font-family: "Lora", Georgia, serif; }
+  .italic { font-style: italic; }
+
+  /* ─── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background 0.4s;
+  }
+  .nav-logo {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo .dot {
+    color: var(--accent);
+    animation: pulse 2.5s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.92); }
+  }
+  .nav-controls { display: flex; gap: 0.5rem; align-items: center; }
+  .ctrl-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--fg-2);
+    border-radius: 100px;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .ctrl-btn:hover { background: var(--bg-soft); color: var(--fg); }
+
+  /* ─── HERO ────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    padding: 9rem 3rem 5rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .hero-intro {
+    font-size: 0.95rem;
+    color: var(--fg-2);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 0.7s 0.05s ease forwards;
+  }
+  .hero-intro .name {
+    font-weight: 500;
+    color: var(--fg);
+    font-size: 1.05rem;
+  }
+  .hero-intro .sep {
+    color: var(--fg-3);
+    font-size: 1.1rem;
+  }
+  .hero-intro .role {
+    color: var(--fg-2);
+    font-style: italic;
+    font-family: "Lora", Georgia, serif;
+    font-size: 1.1rem;
+  }
+
+  .hero h1 {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    margin-bottom: 2rem;
+    color: var(--fg);
+    opacity: 0;
+    animation: slideUp 0.9s 0.1s ease forwards;
+  }
+  .hero h1 .accent {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--fg-2);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: slideUp 0.9s 0.25s ease forwards;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1.5rem 4rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: slideUp 0.9s 0.35s ease forwards;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .hero-meta-label {
+    font-size: 0.7rem;
+    color: var(--fg-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-meta-value {
+    font-size: 0.98rem;
+    color: var(--fg);
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 0.9s 0.45s ease forwards;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 100px;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 400;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--fg);
+    color: var(--bg);
+    border: 1px solid var(--fg);
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .btn .arrow { transition: transform 0.3s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+  .btn svg { display: block; }
+
+  /* PHOTO */
+  .hero-photo-wrap {
+    position: relative;
+    opacity: 0;
+    animation: scaleUp 1.1s 0.2s ease forwards;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-photo {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    display: block;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── SECTIONS ───────────────────────────────────── */
+  section {
+    padding: 3rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .sec-header { margin-bottom: 4rem; }
+  .sec-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+  .sec-title {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--fg);
+    max-width: 800px;
+  }
+  .sec-title .italic { color: var(--accent); font-weight: 500; }
+
+  /* ─── ABOUT ──────────────────────────────────── */
+  .about-text {
+    font-size: 1.18rem;
+    line-height: 1.7;
+    color: var(--fg-2);
+    max-width: 720px;
+    font-weight: 300;
+  }
+  .about-text p + p { margin-top: 1.4rem; }
+  .about-text strong {
+    color: var(--fg);
+    font-weight: 500;
+  }
+
+  /* ─── PILLARS ───────────────────────────────── */
+  .pillars { display: flex; flex-direction: column; }
+  .pillar {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .pillar:last-child { border-bottom: 1px solid var(--line); }
+  .pillar-num {
+    font-family: "Lora", Georgia, serif;
+    font-size: 1.4rem;
+    color: var(--fg-3);
+    font-weight: 400;
+  }
+  .pillar-content h3 {
+    font-family: "Lora", Georgia, serif;
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+    color: var(--fg);
+    margin-bottom: 0.75rem;
+  }
+  .pillar-content p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--fg-2);
+    max-width: 620px;
+    font-weight: 300;
+  }
+
+  /* ─── TOOLS CLOUD ─────────────────────────────── */
+  .tools-cloud {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 0.5rem 0 1rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+  }
+  .tools-cloud.dragging { cursor: grabbing; }
+  .tools-cloud.dragging .tools-row { animation-play-state: paused !important; }
+  .tools-row {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    margin-bottom: 1rem;
+    will-change: transform;
+  }
+  .tools-row:last-child { margin-bottom: 0; }
+
+  .tool-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.4rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--fg);
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: nowrap;
+    cursor: default;
+    transform-origin: center center;
+    transform: scale(var(--s, 1));
+    transition: transform 0.18s ease-out;
+  }
+
+  /* ─── FOOTER ────────────────────────────────── */
+  footer {
+    padding: 6rem 3rem 4rem;
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .footer-cta {
+    font-family: "Lora", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+    color: var(--fg);
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+  }
+  .footer-cta .italic { color: var(--accent); font-weight: 500; }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  .footer-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .footer-link svg { display: block; }
+
+  /* ─── REVEAL ─────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero { padding: 7rem 2rem 4rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-photo-wrap { order: -1; }
+    .hero-photo { max-width: 200px; }
+    section { padding: 5rem 2rem; }
+    nav { padding: 1.25rem 2rem; }
+    .pillar { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+    footer { padding: 4rem 2rem 3rem; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .hero-meta { gap: 1.25rem 2rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="dot">.</span>
+  </a>
+  <div class="nav-controls">
+    <button class="ctrl-btn" onclick="toggleLang()">
+      <span id="langLabel">RU</span>
+    </button>
+    <button class="ctrl-btn" onclick="toggleTheme()">
+      <span id="themeIcon">☾</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-intro">
+        <span class="name" data-en="Farkhad Kerimli" data-ru="Фархад Керимли">Farkhad Kerimli</span>
+        <span class="sep">/</span>
+        <span class="role" data-en="Head of Analytics" data-ru="Head of Analytics">Head of Analytics</span>
+      </div>
+      <h1>
+        <span data-en="Analytics for <span class='accent'>decisions</span>, not <span class='accent'>dashboards</span>."
+              data-ru="Аналитика для <span class='accent'>решений</span>, а не для <span class='accent'>дашбордов</span>.">
+          Analytics for <span class="accent">decisions</span>, not <span class="accent">dashboards</span>.
+        </span>
+      </h1>
+      <p class="hero-sub"
+         data-en="12+ years in analytics. I've built teams and functions from scratch at Yandex Market, fintech, and UGC. I ensure that data drives decisions, not just sits in dashboards."
+         data-ru="12+ лет в аналитике. Строю команды и функции с нуля в Яндекс Маркете, финтехе и UGC. Слежу, чтобы цифры доходили до решений, а не оседали в дашбордах.">
+        12+ years in analytics. Built teams and functions from scratch at Yandex Market, in fintech and UGC. Most of my work has been about making sure the numbers actually got used.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label" data-en="Experience" data-ru="Опыт">Experience</span>
+          <span class="hero-meta-value" data-en="12+ years" data-ru="12+ лет">12+ years</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label" data-en="Russian" data-ru="Русский">Russian</span>
+          <span class="hero-meta-value" data-en="Native" data-ru="Родной">Native</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label" data-en="English" data-ru="Английский">English</span>
+          <span class="hero-meta-value">C1</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label" data-en="Italian" data-ru="Итальянский">Italian</span>
+          <span class="hero-meta-value">A2</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="https://t.me/fardroid" target="_blank" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+          </svg>
+          <span>Telegram · @fardroid</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="photo.jpg" alt="Farkhad Kerimli">
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="sec-header">
+    <h2 class="sec-title">
+      <span data-en="Analytics that <span class='italic'>actually</span> changes things."
+            data-ru="Аналитика, которая <span class='italic'>правда</span> что-то меняет.">
+        Analytics that <span class="italic">actually</span> changes things.
+      </span>
+    </h2>
+  </div>
+  <div class="about-text">
+    <p data-en="I'm Farkhad. Twelve years in analytics, most recently as Head of Analytics at Yandex Market. Before that I worked in fintech (uBank) and UGC (Rate&amp;Goods). The goal was the same everywhere: to transform analytics from a service function into part of the product.."
+       data-ru="Меня зовут Фархад. Двенадцать лет в аналитике, последние 3 года - Head of Analytics в Яндекс Маркете. До этого работал в финтехе (uBank) и UGC (Rate&amp;Goods). Везде задача была одна — превратить аналитику из обслуживающей функции в часть продукта.">
+      I'm Farkhad. Twelve years in analytics, most recently as Head of Analytics at Yandex Market. Before that I worked in fintech (uBank) and UGC (Rate&amp;Goods), usually starting as an IC and ending up running the function.
+    </p>
+    <p data-en="What I like building is teams that don't wait for someone to assign them a question. The good analysts I've worked with notice things on their own, push back on weak briefs, and connect their work to the actual business. That's the standard I try to set."
+       data-ru="Мне нравится строить команды, которые не ждут, пока им поставят задачу. Сильные аналитики, с которыми я работал, сами замечают важное, пушбекают на слабые брифы и связывают свою работу с бизнесом. Этот стандарт я и стараюсь задавать.">
+      What I like building is teams that don't wait for someone to assign them a question. The good analysts I've worked with notice things on their own, push back on weak briefs, and connect their work to the actual business. That's the standard I try to set.
+    </p>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars" class="reveal">
+  <div class="sec-header">
+    <h2 class="sec-title">
+      <span data-en="What I do <span class='italic'>well</span>."
+            data-ru="Что я умею <span class='italic'>хорошо</span>.">
+        What I do <span class="italic">well</span>.
+      </span>
+    </h2>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pillar-num">01</span>
+      <div class="pillar-content">
+        <h3 data-en="Broad domain experience"
+            data-ru="Опыт в разных доменах">Broad domain experience</h3>
+        <p data-en="Product, marketing, financial analytics, UGC, marketplace. I've moved between domains a lot and tend to pick up new contexts quickly."
+           data-ru="Продукт, маркетинг, финансовая аналитика, UGC, маркетплейс. Часто переключался между доменами и привык быстро вкатываться в новый контекст.">
+          Product, marketing, financial analytics, UGC, marketplace. I've moved between domains a lot and tend to pick up new contexts quickly.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <span class="pillar-num">02</span>
+      <div class="pillar-content">
+        <h3 data-en="Analytics that influences decisions"
+            data-ru="Аналитика, влияющая на решения">Analytics that influences decisions</h3>
+        <p data-en="I've spent years working as a partner-analyst to commerce, marketing and finance teams. The goal was rarely just to deliver the number. It was to make sure the right question got asked in the first place."
+           data-ru="Несколько лет работал партнёр-аналитиком для команд коммерции, маркетинга и финансов. Задача обычно была не просто посчитать цифру, а сделать так, чтобы был задан правильный вопрос.">
+          I've spent years working as a partner-analyst to commerce, marketing and finance teams. The goal was rarely just to deliver the number. It was to make sure the right question got asked in the first place.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <span class="pillar-num">03</span>
+      <div class="pillar-content">
+        <h3 data-en="Developing people, not just processes"
+            data-ru="Развитие людей, а не только процессы">Developing people, not just processes</h3>
+        <p data-en="The analysts I've managed tend to grow fast and take ownership of their areas. I care more about whether they can think through an ambiguous problem than whether they know my favourite SQL pattern."
+           data-ru="Аналитики, которыми я управлял, обычно быстро растут и берут владение своими областями. Мне важнее, может ли человек разобраться в неоднозначной задаче, чем знает ли он мой любимый паттерн в SQL.">
+          The analysts I've managed tend to grow fast and take ownership of their areas. I care more about whether they can think through an ambiguous problem than whether they know my favourite SQL pattern.
+        </p>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <span class="pillar-num">04</span>
+      <div class="pillar-content">
+        <h3 data-en="Building from zero"
+            data-ru="Запуск с нуля">Building from zero</h3>
+        <p data-en="I've set up analytics functions in four business units at Yandex Market and at two earlier companies. The work usually involves a mix of metrics, infrastructure, and changing how people make decisions. The tool stack matters less than getting the basics right."
+           data-ru="Запустил аналитические функции в четырёх бизнес-юнитах Маркета и в двух предыдущих компаниях. Работа обычно состоит из метрик, инфраструктуры и изменения того, как люди принимают решения. Стек тут вторичен, важно правильно поставить базу.">
+          I've set up analytics functions in four business units at Yandex Market and at two earlier companies. The work usually involves a mix of metrics, infrastructure, and changing how people make decisions. The tool stack matters less than getting the basics right.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools" class="reveal" style="max-width: none; padding-left: 0; padding-right: 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 3rem;">
+    <div class="sec-header" style="margin-bottom: 2rem;">
+      <h2 class="sec-title">
+        <span data-en="What I <span class='italic'>work with</span>."
+              data-ru="С чем я <span class='italic'>работаю</span>.">
+          What I <span class="italic">work with</span>.
+        </span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="tools-cloud">
+    <div class="tools-row r1" id="toolsRow1"></div>
+    <div class="tools-row r2" id="toolsRow2"></div>
+    <div class="tools-row r3" id="toolsRow3"></div>
+    <div class="tools-row r4" id="toolsRow4"></div>
+    <div class="tools-row r5" id="toolsRow5"></div>
+    <div class="tools-row r6" id="toolsRow6"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="reveal">
+  <div class="footer-inner">
+    <h2 class="footer-cta">
+      <span data-en="Need someone to set up analytics or push an <span class='italic'>existing team further</span>? Get in touch."
+            data-ru="Нужно запустить аналитику с нуля или подтянуть <span class='italic'>действующую команду</span>? Напишите.">
+        Need someone to set up analytics or push an <span class="italic">existing team further</span>? Get in touch.
+      </span>
+    </h2>
+    <div class="footer-links">
+      <a href="https://t.me/fardroid" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+        </svg>
+        Telegram
+      </a>
+      <a href="https://www.linkedin.com/in/farkhad-kerimli-296114403/" target="_blank" class="footer-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── TOOLS CLOUD ─────────────────────────────
+  const tools = [
+    // Code & data
+    "SQL", "YQL", "Python", "Pandas", "Matplotlib", "Jupyter Notebook",
+    "Git", "PyCharm", "ClickHouse",
+    // BI
+    "Tableau", "DataLens", "Excel", "Google Data Studio",
+    // Product analytics
+    "Amplitude", "AppMetrica", "Google Analytics", "Yandex.Metrika", "SimilarWeb", "Google Trends",
+    // Mobile
+    "Appsflyer", "Branch", "Facebook SDK",
+    // Cloud & infra
+    "Google Tag Manager", "Yandex.Cloud", "Google Cloud Console",
+    // Ads
+    "Yandex.Direct", "Google Adwords", "Facebook Ads Manager", "MyTarget",
+    // CRM / messaging
+    "SendSay", "PushWoosh", "OneSignal", "Mailchimp", "Mindbox",
+    // Other tools
+    "Telegram API", "N8N", "Figma", "Miro", "YT", "Tilda", "Shopify", "Jira",
+    // AI
+    "Claude Code", "OpenClaw", "Hermes",
+    // Analytical methods
+    "A/B Testing", "Cohort Analysis", "Funnel Analysis", "RFM Segmentation", "Unit Economics",
+    // Business domains
+    "E-commerce", "B2B", "UGC", "Mobile Analytics", "Web Analytics", "Fintech", "Startups",
+    // Strategy & ops
+    "Pricing Strategy", "Promo Campaigns", "Partnership",
+    // Leadership
+    "Team Leadership", "People Management", "Mentoring",
+    "Cross-functional collaboration", "Stakeholder Management",
+    "Hiring & Onboarding", "Performance Reviews",
+    // Metrics & frameworks
+    "KPI Development", "Customer Segmentation", "Data Governance",
+    "Retention", "LTV", "CPA", "CRM", "ARPPU", "ROI", "Marketing"
+  ];
+
+  // shuffle helper
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // split into 6 rows, each shuffled
+  const shuffled = shuffle(tools);
+  const ROW_COUNT = 6;
+  const rowSize = Math.ceil(shuffled.length / ROW_COUNT);
+  const rows = [];
+  for (let i = 0; i < ROW_COUNT; i++) {
+    rows.push(shuffled.slice(i * rowSize, (i + 1) * rowSize));
+  }
+
+  ['toolsRow1', 'toolsRow2', 'toolsRow3', 'toolsRow4', 'toolsRow5', 'toolsRow6'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el || !rows[i]) return;
+    const items = [...rows[i], ...rows[i]];
+    items.forEach(t => {
+      const span = document.createElement('span');
+      span.className = 'tool-tag';
+      span.textContent = t;
+      el.appendChild(span);
+    });
+  });
+
+  // ─── JS-DRIVEN CLOUD ANIMATION + DRAG ────────
+  const cloudEl = document.querySelector('.tools-cloud');
+  const rowEls = Array.from(cloudEl.querySelectorAll('.tools-row'));
+
+  // Speed per row (px/sec). Negative = move left.
+  const SPEEDS = [-32, -26, -29, -24, -28, -30];
+
+  const state = rowEls.map((el, i) => ({
+    el,
+    x: i % 2 === 1 ? -50 : 0,
+    speed: SPEEDS[i] || -28,
+    width: 0
+  }));
+
+  // Reference speed used to compute proportional drag movement
+  const REF_SPEED = -28;
+
+  function measure() {
+    state.forEach(s => { s.width = s.el.scrollWidth / 2; });
+  }
+  measure();
+  window.addEventListener('resize', measure);
+
+  function wrap(s) {
+    if (s.width <= 0) return;
+    while (s.x <= -s.width) s.x += s.width;
+    while (s.x > 0) s.x -= s.width;
+  }
+
+  function render() {
+    state.forEach(s => {
+      s.el.style.transform = `translate3d(${s.x.toFixed(2)}px, 0, 0)`;
+    });
+  }
+
+  let lastT = performance.now();
+  let dragging = false;
+  let inertiaVx = 0;          // residual velocity in "reference units" px/sec
+  const FRICTION = 0.94;      // 0..1; closer to 1 = longer inertia
+
+  function tick(t) {
+    const dt = Math.min(0.05, (t - lastT) / 1000);
+    lastT = t;
+    if (!dragging) {
+      state.forEach(s => {
+        // each row moves at its own base speed + a proportional share of inertia
+        const inertiaShare = inertiaVx * (s.speed / REF_SPEED);
+        s.x += (s.speed + inertiaShare) * dt;
+        wrap(s);
+      });
+      // decay inertia
+      if (Math.abs(inertiaVx) > 0.5) {
+        inertiaVx *= Math.pow(FRICTION, dt * 60);
+      } else {
+        inertiaVx = 0;
+      }
+      render();
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // ── Drag handling with axis lock and inertia ──
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartXs = [];
+  let dragDecided = false;     // axis lock decided?
+  let dragHorizontal = false;  // true => we intercept horizontal scroll
+  let pointerActive = false;
+  // velocity sampling
+  let lastMoveX = 0;
+  let lastMoveT = 0;
+  let sampleVx = 0;
+
+  function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  function getY(e) { return e.touches ? e.touches[0].clientY : e.clientY; }
+
+  function pointerDown(e) {
+    pointerActive = true;
+    dragging = false;
+    dragDecided = false;
+    dragHorizontal = false;
+    dragStartX = getX(e);
+    dragStartY = getY(e);
+    dragStartXs = state.map(s => s.x);
+    lastMoveX = dragStartX;
+    lastMoveT = performance.now();
+    sampleVx = 0;
+    // don't preventDefault yet — wait until we know it's horizontal,
+    // so vertical scroll can pass through.
+  }
+
+  function pointerMove(e) {
+    if (!pointerActive) return;
+    const cx = getX(e);
+    const cy = getY(e);
+    const dx = cx - dragStartX;
+    const dy = cy - dragStartY;
+
+    if (!dragDecided) {
+      // decide axis after small movement threshold
+      if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
+        dragDecided = true;
+        dragHorizontal = Math.abs(dx) > Math.abs(dy);
+        if (dragHorizontal) {
+          dragging = true;
+          cloudEl.classList.add('dragging');
+          inertiaVx = 0; // cancel any leftover inertia at drag start
+        } else {
+          // vertical scroll — release pointer capture and let page scroll
+          pointerActive = false;
+          return;
+        }
+      } else {
+        return;
+      }
+    }
+
+    if (!dragHorizontal) return;
+
+    // proportional movement: each row gets dx * (its speed / reference speed)
+    state.forEach((s, i) => {
+      const factor = s.speed / REF_SPEED;
+      s.x = dragStartXs[i] + dx * factor;
+      wrap(s);
+    });
+    render();
+
+    // sample velocity for inertia
+    const now = performance.now();
+    const dtSample = (now - lastMoveT) / 1000;
+    if (dtSample > 0) {
+      const instVx = (cx - lastMoveX) / dtSample; // px/sec horizontal pointer velocity
+      // exponential smoothing
+      sampleVx = sampleVx * 0.7 + instVx * 0.3;
+    }
+    lastMoveX = cx;
+    lastMoveT = now;
+
+    if (e.cancelable) e.preventDefault();
+  }
+
+  function pointerUp() {
+    if (!pointerActive) return;
+    pointerActive = false;
+    if (!dragging) return;
+    dragging = false;
+    cloudEl.classList.remove('dragging');
+    // reset scales
+    cloudEl.querySelectorAll('.tool-tag').forEach(t => t.style.setProperty('--s', 1));
+    // inject inertia (pointer velocity becomes initial inertia)
+    inertiaVx = sampleVx;
+    lastT = performance.now();
+  }
+
+  // Mouse
+  cloudEl.addEventListener('mousedown', pointerDown);
+  window.addEventListener('mousemove', pointerMove);
+  window.addEventListener('mouseup', pointerUp);
+  // Touch
+  cloudEl.addEventListener('touchstart', pointerDown, { passive: true });
+  window.addEventListener('touchmove', pointerMove, { passive: false });
+  window.addEventListener('touchend', pointerUp);
+  window.addEventListener('touchcancel', pointerUp);
+
+  // ─── DOCK MAGNIFY ────────────────────────────
+  // increase scale of tags near mouse cursor
+  const cloud = document.querySelector('.tools-cloud');
+  const MAX_SCALE = 1.35;
+  const RANGE = 140; // px radius of effect
+
+  function updateScales(mouseX, mouseY) {
+    const tags = cloud.querySelectorAll('.tool-tag');
+    tags.forEach(tag => {
+      const rect = tag.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = mouseX - cx;
+      const dy = mouseY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < RANGE) {
+        const factor = 1 - dist / RANGE;
+        const scale = 1 + (MAX_SCALE - 1) * factor;
+        tag.style.setProperty('--s', scale.toFixed(3));
+      } else {
+        tag.style.setProperty('--s', 1);
+      }
+    });
+  }
+
+  cloud.addEventListener('mousemove', (e) => {
+    if (dragging) return;
+    updateScales(e.clientX, e.clientY);
+  });
+  cloud.addEventListener('mouseleave', () => {
+    cloud.querySelectorAll('.tool-tag').forEach(t => t.style.setProperty('--s', 1));
+  });
+
+  // ─── THEME ──────────────────────────────────
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  let manualTheme = null;
+  function applyTheme(dark) {
+    document.body.setAttribute("data-theme", dark ? "dark" : "light");
+    document.getElementById("themeIcon").textContent = dark ? "☀" : "☾";
+  }
+  function toggleTheme() {
+    manualTheme = document.body.getAttribute("data-theme") !== "dark";
+    applyTheme(manualTheme);
+  }
+  prefersDark.addEventListener("change", (e) => { if (manualTheme === null) applyTheme(e.matches); });
+  applyTheme(prefersDark.matches);
+
+  // ─── LANG ───────────────────────────────────
+  const browserLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+  let currentLang = browserLang.startsWith("ru") ? "ru" : "en";
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-en][data-ru]").forEach(el => {
+      const text = el.getAttribute("data-" + lang);
+      if (text) el.innerHTML = text;
+    });
+    document.getElementById("langLabel").textContent = lang === "ru" ? "EN" : "RU";
+    document.title = lang === "ru" ? "Фархад Керимли - Head of Analytics" : "Farkhad Kerimli - Head of Analytics";
+  }
+  function toggleLang() { applyLang(currentLang === "ru" ? "en" : "ru"); }
+  applyLang(currentLang);
+
+  // ─── REVEAL ON SCROLL ───────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -80px 0px" });
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
