@@ -4,62 +4,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- REPLACE THE CONTENT VALUE BELOW WITH YOUR GOOGLE VERIFICATION CODE -->
   <meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE" />
-  <title>Gotta — Workout Planner</title>
+  <title>Gotta — Personal Workout Planner for Android</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1B1520;
+      --surface: #241d2e;
+      --accent: #F09972;
+      --green: #8FB573;
+      --text: #f0f0f0;
+      --muted: #998faa;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #1B1520;
-      color: #f0f0f0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 3.5rem;
       text-align: center;
     }
-    .icon {
-      width: 96px; height: 96px;
-      background: #1B1520;
-      border: 3px solid #F09972;
-      border-radius: 24px;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 3rem;
-      font-weight: 900;
-      color: #F09972;
-      letter-spacing: -2px;
+    .app-icon {
+      width: 88px; height: 88px;
+      border: 3px solid var(--accent);
+      border-radius: 22px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
     }
-    h1 { font-size: 2rem; color: #F09972; margin-bottom: .4rem; }
-    .sub { color: #aaa; font-size: 1rem; margin-bottom: 2.5rem; }
-    .badge {
+    .hero h1 { font-size: 2.4rem; color: var(--accent); margin-bottom: .4rem; }
+    .hero .tagline { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; }
+    .hero p {
+      font-size: 1.05rem;
+      color: #ccc;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn {
       display: inline-block;
-      background: #F09972;
-      color: #1B1520;
+      background: var(--accent);
+      color: var(--bg);
       font-weight: 700;
-      border-radius: 8px;
-      padding: .55rem 1.4rem;
-      font-size: .95rem;
-      text-decoration: none;
-      margin-bottom: 3rem;
+      border-radius: 10px;
+      padding: .65rem 1.8rem;
+      font-size: 1rem;
     }
-    footer { color: #555; font-size: .8rem; }
-    footer a { color: #F09972; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+
+    /* ── Features ── */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      padding-bottom: .4rem;
+      border-bottom: 1px solid #2e2540;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 1.2rem 1.1rem;
+    }
+    .card .emoji { font-size: 1.6rem; margin-bottom: .5rem; }
+    .card h3 { font-size: .95rem; color: var(--accent); margin-bottom: .3rem; }
+    .card p { font-size: .88rem; color: var(--muted); }
+
+    /* ── Google data section ── */
+    .data-block {
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .data-block h3 { font-size: .95rem; color: var(--text); margin-bottom: .3rem; }
+    .data-block p { font-size: .88rem; color: var(--muted); }
+    .scope {
+      display: inline-block;
+      background: #2e2540;
+      border-radius: 5px;
+      padding: 2px 8px;
+      font-family: monospace;
+      font-size: .8rem;
+      color: var(--accent);
+      margin-top: .4rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      font-size: .82rem;
+      color: #555;
+      border-top: 1px solid #2e2540;
+    }
+    footer a { color: var(--muted); }
   </style>
 </head>
 <body>
-  <div class="icon">Н</div>
-  <h1>Gotta (Надо)</h1>
-  <p class="sub">Personal workout planner for Android</p>
-  <a class="badge" href="https://play.google.com/store/apps/details?id=app.gotta">
-    Download on Google Play
-  </a>
+
+  <div class="hero">
+    <div class="app-icon">Н</div>
+    <h1>Gotta (Надо)</h1>
+    <p class="tagline">Personal workout planner for Android</p>
+    <p>
+      Gotta builds personalised home and gym workout plans based on your fitness goal,
+      available equipment, and schedule — no subscription, no ads, no account required
+      to get started.
+    </p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=app.gotta">
+      Get it on Google Play
+    </a>
+  </div>
+
+  <div class="section">
+
+    <h2>What the app does</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="emoji">🏋️</div>
+        <h3>Personalised plans</h3>
+        <p>Generates upper / lower body splits tailored to your goal (mass, endurance, weight loss) and the equipment you actually own.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">📋</div>
+        <h3>Step-by-step guidance</h3>
+        <p>Every exercise includes a photo gallery and numbered technique instructions so you always know what to do.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">📈</div>
+        <h3>Workout history</h3>
+        <p>Tracks completed sessions, sets, and skipped exercises so you can see your progress over time.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">☁️</div>
+        <h3>Cross-device backup</h3>
+        <p>Optionally back up your settings and history to your Google Drive so you can restore them on a new device.</p>
+      </div>
+    </div>
+
+    <h2>Why we request Google account access</h2>
+    <p style="color:var(--muted);font-size:.92rem;margin-bottom:1rem;">
+      Google Sign-In and Drive access are <strong style="color:var(--text)">optional</strong>.
+      The app works fully without signing in. You only need a Google account if you want to
+      back up and restore your data across devices.
+    </p>
+
+    <div class="data-block">
+      <h3>Google account email</h3>
+      <p>Used only to identify your backup file in Drive and to display your account in the Settings screen. Never shared with third parties.</p>
+    </div>
+
+    <div class="data-block">
+      <h3>Google Drive — AppData folder</h3>
+      <p>
+        We request access to the app's <em>private</em> AppData folder in your Drive.
+        This folder is invisible in the Drive UI and accessible only to Gotta.
+        It stores a single backup file containing your workout preferences and history.
+        We never access any other files in your Drive.
+      </p>
+      <span class="scope">drive.appdata</span>
+    </div>
+
+    <div class="data-block">
+      <h3>What we do NOT access</h3>
+      <p>Location, contacts, photos, messages, full Drive contents, or any other Google service.</p>
+    </div>
+
+  </div>
+
   <footer>
-    <a href="privacy_policy.html">Privacy Policy</a>
+    <p>© 2026 Gotta (Надо) &nbsp;·&nbsp; <a href="privacy_policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:gotta.app.dev@gmail.com">gotta.app.dev@gmail.com</a></p>
   </footer>
+
 </body>
 </html>
